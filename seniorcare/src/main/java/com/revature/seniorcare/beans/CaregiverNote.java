@@ -25,18 +25,18 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Entity
-@Table(name="PatientNotes")
-public class PatientNote {
+@Table(name="CaregiverNotes")
+public class CaregiverNote {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="p_note_seq")
-	@SequenceGenerator(name="p_note_seq", sequenceName="p_note_seq", allocationSize=1)
-	@Column(name="PatientNote_ID")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="cg_note_seq")
+	@SequenceGenerator(name="cg_note_seq", sequenceName="cg_note_seq", allocationSize=1)
+	@Column(name="CaregiverNote_ID")
 	int id;
 	
 	@OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_id", nullable = false)
-	Patient patient;
+    @JoinColumn(name = "caregiver_id", nullable = false)
+	Caregiver caregiver;
 	
 	@Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created", nullable = false)
@@ -45,16 +45,14 @@ public class PatientNote {
 	@Column(name="text", nullable=false)
 	private String text;
 
+	public CaregiverNote() {
+		// TODO Auto-generated constructor stub
+	}
 	
-	public PatientNote(int id, String text) {
+	public CaregiverNote(int id, String text) {
 		super();
 		this.id = id;
 		this.text = text;
-	}
-
-	public PatientNote() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Calendar getCreated() {
@@ -81,6 +79,5 @@ public class PatientNote {
 		this.text = text;
 	}
 
-	
 	
 }
