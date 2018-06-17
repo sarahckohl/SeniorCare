@@ -1,12 +1,7 @@
 package com.revature.seniorcare.service;
 
-import java.util.List;
 
-import com.revature.seniorcare.beans.Caregiver;
-
-public interface CaregiverService {
+public interface CaregiverService extends UserService {
 	
-	List<Caregiver> getAll();
-	Caregiver findById(int id);
 
 }

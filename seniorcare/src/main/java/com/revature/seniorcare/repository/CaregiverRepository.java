@@ -1,19 +1,17 @@
 package com.revature.seniorcare.repository;
 
-import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import javax.transaction.Transactional;
 
 import com.revature.seniorcare.beans.Caregiver;
+import com.revature.seniorcare.beans.User;
 
-@Repository
-public interface CaregiverRepository extends JpaRepository<Caregiver, Integer>{
+@Transactional
+public interface CaregiverRepository extends UserBaseRepository<Caregiver>{
 	
-	
-	List<Caregiver> findAll();
-	Optional<Caregiver> findById(int PatientID);
+	public Optional<User> getByLicenseNumber(int number);
+	//TODO get by availability and schedule
 	//list of possible queries    https://docs.spring.io/spring-data/jpa/docs/1.5.0.RELEASE/reference/html/jpa.repositories.html#jpa.query-methods.query-creation
 	
 }

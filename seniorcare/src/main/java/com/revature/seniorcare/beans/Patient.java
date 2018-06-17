@@ -33,10 +33,10 @@ public class Patient extends User {
 
 	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@Fetch(FetchMode.SELECT)
-	@JoinTable(name="PATIENTS_PREFEREd_Caregivers",
+	@JoinTable(name="PATIENTS_PREFERRED_Caregivers",
 			joinColumns=@JoinColumn(name="patient_ID"),
 			inverseJoinColumns=@JoinColumn(name="caregiver_ID"))
-	private Set<Caregiver> preferedCaregivers;
+	private Set<Caregiver> preferredCaregivers;
 	
 	
 	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
@@ -44,7 +44,17 @@ public class Patient extends User {
 	@JoinTable(name="PATIENTS_PREFERENCES",
 			joinColumns=@JoinColumn(name="patient_ID"),
 			inverseJoinColumns=@JoinColumn(name="preference_ID"))
-	private Set<Preference> preferences;	
+	private Set<Preference> preferences;
+
+
+	public Set<Caregiver> getPreferredCaregivers() {
+		return preferredCaregivers;
+	}
+
+
+	public Set<Preference> getPreferences() {
+		return preferences;
+	}	
 	
 
 }

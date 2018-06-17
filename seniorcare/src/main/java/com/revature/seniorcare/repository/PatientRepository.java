@@ -1,19 +1,17 @@
 package com.revature.seniorcare.repository;
 
-import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import javax.transaction.Transactional;
 
 import com.revature.seniorcare.beans.Patient;
+import com.revature.seniorcare.beans.User;
 
-@Repository
-public interface PatientRepository extends JpaRepository<Patient, Integer>{
+@Transactional
+public interface PatientRepository extends UserBaseRepository<Patient>{
 	
+	public Optional<User> findByPreferences();
+	public Optional<User> findByPreferredCaregivers();
 	
-	List<Patient> findAll();
-	Optional<Patient> findById(int PatientID);
-	Patient findByfirstName(String name);
 	//list of possible queries    https://docs.spring.io/spring-data/jpa/docs/1.5.0.RELEASE/reference/html/jpa.repositories.html#jpa.query-methods.query-creation
 }

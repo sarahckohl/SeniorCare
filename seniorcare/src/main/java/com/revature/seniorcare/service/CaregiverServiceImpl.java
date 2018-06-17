@@ -14,18 +14,10 @@ import com.revature.seniorcare.repository.CaregiverRepository;
 
 @Service("CaregiverService")
 @Transactional
-public class CaregiverServiceImpl implements CaregiverService{
+public class CaregiverServiceImpl extends UserServiceImpl implements CaregiverService{
 	
 	@Autowired
 	private CaregiverRepository caregiverRepo;
 
-	@Override
-	public List<Caregiver> getAll() {
-		return caregiverRepo.findAll();
-	}
 
-	@Override
-	public Caregiver findById(int id) {
-		return caregiverRepo.findOne(id);
-	}
 }
