@@ -47,6 +47,14 @@ public class AvailabilityBlock {
 	
 	public AvailabilityBlock(int id, Calendar start, Calendar end) {
 		super();
+		
+		if(start.after(end)) throw new IllegalArgumentException
+			("Start time occurs after end time.");
+		if(start.YEAR != end.YEAR || start.MONTH != end.MONTH 
+				|| start.DAY_OF_MONTH != end.DAY_OF_MONTH)
+				throw new IllegalArgumentException
+				("Availability overlapping multiple days.  If this is intended"
+				+ "split into two availabilities.");
 		this.id = id;
 		this.start = start;
 		this.end = end;
@@ -64,16 +72,9 @@ public class AvailabilityBlock {
 		return start;
 	}
 
-	public void setStart(Calendar start) {
-		this.start = start;
-	}
 
 	public Calendar getEnd() {
 		return end;
-	}
-
-	public void setEnd(Calendar end) {
-		this.end = end;
 	}
 	
 	

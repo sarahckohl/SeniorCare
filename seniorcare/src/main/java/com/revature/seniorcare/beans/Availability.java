@@ -1,6 +1,13 @@
 package com.revature.seniorcare.beans;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
+import org.springframework.stereotype.Component;
 
 /**
  * Availability is a collection of all availability blocks a caregiver is offering to
@@ -10,12 +17,16 @@ import java.util.ArrayList;
  * @author Sarah
  *
  */
+@Component
 public class Availability {
 	
-	private ArrayList<AvailabilityBlock> availability;
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "AVAILABILITY_ID")
+	private Set<AvailabilityBlock> availability;
 
 	public Availability() {
 		// TODO Auto-generated constructor stub
+		this.availability = new HashSet<AvailabilityBlock>();
 	}
 
 }
