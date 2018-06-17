@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Schedule {
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "APPOINTMENT_ID")
 	Set<Appointment> schedule;
 

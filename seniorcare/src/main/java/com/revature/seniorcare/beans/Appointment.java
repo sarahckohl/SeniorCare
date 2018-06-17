@@ -91,6 +91,15 @@ public class Appointment {
 	public Appointment(int id, Calendar startTime, Calendar endTime, String description, Patient patient,
 			Caregiver caregiver, AppointmentStatus status) {
 		super();
+		
+		if(startTime.after(endTime)) throw new IllegalArgumentException
+		("Start time occurs after end time.");
+	if(startTime.YEAR != endTime.YEAR || startTime.MONTH != endTime.MONTH 
+			|| startTime.DAY_OF_MONTH != endTime.DAY_OF_MONTH)
+			throw new IllegalArgumentException
+			("Appointment overlapping multiple days.  If this is intended"
+			+ "split into two appointments.");
+		
 		this.id = id;
 		this.startTime = startTime;
 		this.endTime = endTime;
