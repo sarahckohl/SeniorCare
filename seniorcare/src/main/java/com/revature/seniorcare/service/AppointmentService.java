@@ -8,5 +8,6 @@ public interface AppointmentService {
 	
 	List<Appointment> getAll();
 	Appointment findById(int id);
+	Appointment addAppointment(Appointment a);
 
 }

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.revature.seniorcare.beans.Appointment;
 import com.revature.seniorcare.beans.User;
 import com.revature.seniorcare.repository.UserRepository;
 
@@ -30,6 +31,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Optional<User> findByFirstName(String name) {
 		return userRepo.findByfirstName(name);
+	}
+
+	@Override
+	public Appointment addAppointment(User u, Appointment a) {
+		// TODO Auto-generated method stub
+		return a;
 	}
 
 }
