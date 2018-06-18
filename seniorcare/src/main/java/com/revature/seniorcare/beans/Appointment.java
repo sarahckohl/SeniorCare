@@ -56,25 +56,24 @@ public class Appointment {
 	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@Fetch(FetchMode.SELECT)
 	@JoinColumn(name="patient")
-	Patient patient;
+	User patient;
 	
 	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@Fetch(FetchMode.SELECT)
 	@JoinColumn(name="Caregiver")
-	Caregiver caregiver;
+	User caregiver;
 	
 	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@Fetch(FetchMode.SELECT)
 	@JoinColumn(name="AppointmentStatus", nullable=false)
 	AppointmentStatus status;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_note")
-	PatientNote patientNote;
-	
-	@OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "caregiver_note")
-	CaregiverNote caregiverNote;
+	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@Fetch(FetchMode.SELECT)
+	@JoinTable(name="APPOINTMENTS_NOTES",
+			joinColumns=@JoinColumn(name="appointment_ID"),
+			inverseJoinColumns=@JoinColumn(name="NOTE_ID"))
+	private Set<Note> Note;
 	
 	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@Fetch(FetchMode.SELECT)
@@ -82,14 +81,21 @@ public class Appointment {
 			joinColumns=@JoinColumn(name="appointment_ID"),
 			inverseJoinColumns=@JoinColumn(name="Caregivingservice_ID"))
 	private Set<CaregivingServices> requestedServices;
+	
+	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@Fetch(FetchMode.SELECT)
+	@JoinTable(name="APPOINTMENT_NOTES",
+			joinColumns=@JoinColumn(name="appointment_ID"),
+			inverseJoinColumns=@JoinColumn(name="Note_ID"))
+	private Set<Note> aptNotes;
 
 	public Appointment() {
 
 	}
 
 	
-	public Appointment(int id, Calendar startTime, Calendar endTime, String description, Patient patient,
-			Caregiver caregiver, AppointmentStatus status) {
+	public Appointment(int id, Calendar startTime, Calendar endTime, String description, User patient,
+			User caregiver, AppointmentStatus status) {
 		super();
 		
 		if(startTime.after(endTime)) throw new IllegalArgumentException
@@ -143,19 +149,19 @@ public class Appointment {
 		this.description = description;
 	}
 
-	public Patient getPatient() {
+	public User getPatient() {
 		return patient;
 	}
 
-	public void setPatient(Patient patient) {
+	public void setPatient(User patient) {
 		this.patient = patient;
 	}
 
-	public Caregiver getCaregiver() {
+	public User getCaregiver() {
 		return caregiver;
 	}
 
-	public void setCaregiver(Caregiver caregiver) {
+	public void setCaregiver(User caregiver) {
 		this.caregiver = caregiver;
 	}
 

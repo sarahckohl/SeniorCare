@@ -6,7 +6,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.revature.seniorcare.beans.User;
-import com.revature.seniorcare.service.PatientService;
 import com.revature.seniorcare.service.UserService;
 
 public class App {

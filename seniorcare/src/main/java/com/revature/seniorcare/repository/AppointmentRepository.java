@@ -13,7 +13,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Intege
 	
 	
 	List<Appointment> findAll();
-	Optional<Appointment> findById(int PatientID);
+	Optional<Appointment> findById(int AppointmentID);
 	//list of possible queries    https://docs.spring.io/spring-data/jpa/docs/1.5.0.RELEASE/reference/html/jpa.repositories.html#jpa.query-methods.query-creation
 	
 }

@@ -6,13 +6,14 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.revature.seniorcare.beans.CaregiverNote;
+import com.revature.seniorcare.beans.Note;
 
 @Repository
-public interface CaregiverNoteRepository extends JpaRepository<CaregiverNote, Integer>{
+public interface NoteRepository extends JpaRepository<Note, Integer>{
 	
-	List<CaregiverNote> findAll();
-	Optional<CaregiverNote> findById(int PatientID);
+	
+	List<Note> findAll();
+	Optional<Note> findById(int NoteID);
 	//list of possible queries    https://docs.spring.io/spring-data/jpa/docs/1.5.0.RELEASE/reference/html/jpa.repositories.html#jpa.query-methods.query-creation
 	
 }

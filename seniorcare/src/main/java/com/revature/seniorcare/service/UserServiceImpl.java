@@ -3,12 +3,17 @@ package com.revature.seniorcare.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.revature.seniorcare.beans.Appointment;
 import com.revature.seniorcare.beans.User;
 import com.revature.seniorcare.repository.UserRepository;
 
+@Service("UserService")
+@Transactional
 public class UserServiceImpl implements UserService {
 
 	@Autowired
@@ -25,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Optional<User> findById(int id) {
-		return Optional.ofNullable(userRepo.findOne((long)id));
+		return Optional.ofNullable(userRepo.findOne(id));
 	}
 
 	@Override
@@ -37,6 +42,12 @@ public class UserServiceImpl implements UserService {
 	public Appointment addAppointment(User u, Appointment a) {
 		// TODO Auto-generated method stub
 		return a;
+	}
+
+	@Override
+	public Optional<User> login(String username, String password) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -1,14 +1,23 @@
 package com.revature.seniorcare.beans;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
@@ -23,10 +32,12 @@ public class User {
 	
 	@Id
 	@Column(name="ID")
-	@SequenceGenerator(name="PNT_ID_SEQ_GEN", sequenceName="PNT_ID_SEQ")	
-	@GeneratedValue(generator="PNT_ID_SEQ_GEN", strategy=GenerationType.SEQUENCE)
+	@SequenceGenerator(name="USR_ID_SEQ", sequenceName="USR_ID_SEQ")	
+	@GeneratedValue(generator="USR_ID_SEQ", strategy=GenerationType.SEQUENCE)
 	int id;
 	
+	@Column(name="userrole", nullable=false)
+	private String userrole;
 	
 	@Column(name="username", nullable=false)
 	private String username;
@@ -52,8 +63,38 @@ public class User {
 	@Column(name="street", nullable=false)
 	private String street;
 	
-	@Autowired
-	private Schedule schedule;
+	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@Fetch(FetchMode.SELECT)
+	@JoinTable(name="User_APPOINTMENTS",
+			joinColumns=@JoinColumn(name="user_ID"),
+			inverseJoinColumns=@JoinColumn(name="appointment_ID"))
+	private Set<Appointment> schedule;
+	
+	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@Fetch(FetchMode.SELECT)
+	@JoinTable(name="PATIENTS_PREFERRED_Caregivers",
+			joinColumns=@JoinColumn(name="patient_ID"),
+			inverseJoinColumns=@JoinColumn(name="caregiver_ID"))
+	private Set<User> preferredCaregivers;
+	
+	
+	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@Fetch(FetchMode.SELECT)
+	@JoinTable(name="PATIENTS_PREFERENCES",
+			joinColumns=@JoinColumn(name="patient_ID"),
+			inverseJoinColumns=@JoinColumn(name="preference_ID"))
+	private Set<Preference> preferences;
+	
+	@Column(name = "licensenumber", unique = true)
+	String licenseNumber;
+
+
+	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@Fetch(FetchMode.SELECT)
+	@JoinTable(name="Caregivers_AvailabilityBlocks",
+			joinColumns=@JoinColumn(name="caregiver_ID"),
+			inverseJoinColumns=@JoinColumn(name="availability_block_ID"))
+	private Set<AvailabilityBlock> availability;
 	
 	public User(int id, String username, String email, String firstName, String lastName, int zipCode, String state,
 			String city, String street) {
@@ -141,8 +182,5 @@ public class User {
 		this.street = street;
 	}
 	
-	public Schedule getSchedule(Schedule schedule) {
-		return this.schedule;
-	}
 
 }

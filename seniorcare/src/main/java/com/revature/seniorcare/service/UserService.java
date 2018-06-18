@@ -15,4 +15,5 @@ public interface UserService {
 	Optional<User> findById(int id);
 	Optional<User> findByFirstName(String name);
 	Appointment addAppointment(User u, Appointment a);
+	Optional<User> login(String username, String password);
 }

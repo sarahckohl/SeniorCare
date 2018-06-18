@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class PatientMedicalNeeds {
 	
-	ArrayList<PatientNote> notes;
+	ArrayList<Note> notes;
 
 	public PatientMedicalNeeds() {
 		// TODO Auto-generated constructor stub
