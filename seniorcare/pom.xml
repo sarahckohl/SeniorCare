@@ -39,10 +39,32 @@
 			<artifactId>spring-beans</artifactId>
 		</dependency>
 	
+		<!-- Spring Context Support. A helper module for Spring Context. -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
+		</dependency>
+		
+		<!-- The core of Spring. Necessary for Spring. The base framework. -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+		</dependency>
+		
+		<!-- A logging module that spring uses. -->
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+		</dependency>
+		<!-- Annotations for bean validity -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
 		</dependency>
 
 		<!-- Spring 4 ORM -->
@@ -89,4 +111,5 @@
 
 	</dependencies>
 
+	<packaging>war</packaging>
 </project>

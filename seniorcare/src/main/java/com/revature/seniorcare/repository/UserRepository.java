@@ -12,7 +12,8 @@ import com.revature.seniorcare.beans.User;
 @Repository
 @Transactional
 public interface UserRepository extends JpaRepository<User, Integer> {
-
+	
+	public User save(User newuser);
 	public Optional<User> findById(int id);
 	public Optional<User> findByEmail(String email);
 	public Optional<User> findByfirstName(String firstName);

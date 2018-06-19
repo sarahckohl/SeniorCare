@@ -1,30 +1,29 @@
-package controllers;
+package com.revature.seniorcare.controllers;
 
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.seniorcare.beans.User;
 import com.revature.seniorcare.service.UserService;
 
-@Controller
-@RestController(value = "/users")
-public class UserController {
-
+@Controller //Registers class as a spring bean that will manage requests
+public class LoginController {
+	
 	static {
 		System.out.println("in login controller");
 	}
 	
 
 	@Autowired
-	private UserService userService;
+	private UserService loginService;
 	
 	@RequestMapping(value = "/login", method=RequestMethod.GET)
 	public String loadLogin(HttpSession session) {
@@ -43,7 +42,7 @@ public class UserController {
 		
 		System.out.println("IN LOGIN --POST. Attempting to log in user " +
 				username + " with password "+ password);
-		Optional<User> u = userService.login(username, password);
+		Optional<User> u = loginService.login(username, password);
 		if(u == null) {
 			return "redirect:login";
 		} else {
@@ -53,4 +52,5 @@ public class UserController {
 		}
 	}
 	
+
 }

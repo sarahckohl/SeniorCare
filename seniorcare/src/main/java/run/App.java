@@ -14,6 +14,12 @@ public class App {
 		ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 		
 		UserService service = (UserService) context.getBean("UserService", UserService.class);
+		
+		User temp = service.add(new User(0, "Patient", "test", "test", "test", "test", 6820, "test",
+				"test", "test", "test"));
+		
+		temp.toString();
+		
 		List<User> users = service.getAll();
 		for(User u : users) {
 			System.out.println(u.toString());
