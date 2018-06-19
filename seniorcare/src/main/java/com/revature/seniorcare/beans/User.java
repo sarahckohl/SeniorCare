@@ -83,13 +83,6 @@ public class User {
 	String licenseNumber;
 
 
-	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	@Fetch(FetchMode.SELECT)
-	@JoinTable(name="Caregivers_AvailabilityBlocks",
-			joinColumns=@JoinColumn(name="caregiver_ID"),
-			inverseJoinColumns=@JoinColumn(name="availability_block_ID"))
-	private Set<AvailabilityBlock> availability;
-
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
