@@ -20,5 +20,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	public Optional<User> findByCity(String city);
 	public Optional<User> findByState(String state);
 	public Optional<User> findByStreet(String street);
+
 	
 }
