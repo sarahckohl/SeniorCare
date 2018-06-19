@@ -24,11 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Inheritance
 @Table(name="USERS")
 public class User {
-
-	public User() {
-		// TODO Auto-generated constructor stub
-	}
-	
 	
 	@Id
 	@Column(name="ID")
@@ -95,11 +90,17 @@ public class User {
 			joinColumns=@JoinColumn(name="caregiver_ID"),
 			inverseJoinColumns=@JoinColumn(name="availability_block_ID"))
 	private Set<AvailabilityBlock> availability;
-	
-	public User(int id, String username, String email, String firstName, String lastName, int zipCode, String state,
-			String city, String street) {
+
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public User(int id, String userrole, String username, String email, String firstName, String lastName, int zipCode,
+			String state, String city, String street, String licenseNumber) {
 		super();
 		this.id = id;
+		this.userrole = userrole;
 		this.username = username;
 		this.email = email;
 		this.firstName = firstName;
@@ -108,79 +109,204 @@ public class User {
 		this.state = state;
 		this.city = city;
 		this.street = street;
+		this.schedule = schedule;
+		this.preferredCaregivers = preferredCaregivers;
+		this.preferences = preferences;
+		this.licenseNumber = licenseNumber;
+		this.availability = availability;
 	}
+
+
 
 	public int getId() {
 		return id;
 	}
 
+
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
+
+
+	public String getUserrole() {
+		return userrole;
+	}
+
+
+
+	public void setUserrole(String userrole) {
+		this.userrole = userrole;
+	}
+
+
 
 	public String getUsername() {
 		return username;
 	}
 
+
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
+
 
 	public String getEmail() {
 		return email;
 	}
 
+
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+
 
 	public String getFirstName() {
 		return firstName;
 	}
 
+
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
+
+
 
 	public String getLastName() {
 		return lastName;
 	}
 
+
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
+
 
 	public int getZipCode() {
 		return zipCode;
 	}
 
+
+
 	public void setZipCode(int zipCode) {
 		this.zipCode = zipCode;
 	}
+
+
 
 	public String getState() {
 		return state;
 	}
 
+
+
 	public void setState(String state) {
 		this.state = state;
 	}
+
+
 
 	public String getCity() {
 		return city;
 	}
 
+
+
 	public void setCity(String city) {
 		this.city = city;
 	}
+
+
 
 	public String getStreet() {
 		return street;
 	}
 
+
+
 	public void setStreet(String street) {
 		this.street = street;
 	}
+
+
+
+	public Set<Appointment> getSchedule() {
+		return schedule;
+	}
+
+
+
+	public void setSchedule(Set<Appointment> schedule) {
+		this.schedule = schedule;
+	}
+
+
+
+	public Set<User> getPreferredCaregivers() {
+		return preferredCaregivers;
+	}
+
+
+
+	public void setPreferredCaregivers(Set<User> preferredCaregivers) {
+		this.preferredCaregivers = preferredCaregivers;
+	}
+
+
+
+	public Set<Preference> getPreferences() {
+		return preferences;
+	}
+
+
+
+	public void setPreferences(Set<Preference> preferences) {
+		this.preferences = preferences;
+	}
+
+
+
+	public String getLicenseNumber() {
+		return licenseNumber;
+	}
+
+
+
+	public void setLicenseNumber(String licenseNumber) {
+		this.licenseNumber = licenseNumber;
+	}
+
+
+
+	public Set<AvailabilityBlock> getAvailability() {
+		return availability;
+	}
+
+
+
+	public void setAvailability(Set<AvailabilityBlock> availability) {
+		this.availability = availability;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", userrole=" + userrole + ", username=" + username + ", email=" + email
+				+ ", firstName=" + firstName + ", lastName=" + lastName + ", zipCode=" + zipCode + ", state=" + state
+				+ ", city=" + city + ", street=" + street + ", schedule=" + schedule + ", preferredCaregivers="
+				+ preferredCaregivers + ", preferences=" + preferences + ", licenseNumber=" + licenseNumber
+				+ ", availability=" + availability + "]";
+	}
+	
 	
 
 }

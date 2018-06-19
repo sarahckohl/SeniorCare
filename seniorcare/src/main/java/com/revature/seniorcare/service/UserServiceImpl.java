@@ -50,4 +50,10 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 
+	@Override
+	public User add(User newuser) {
+		User u = userRepo.save(newuser);
+		return u;
+	}
+
 }

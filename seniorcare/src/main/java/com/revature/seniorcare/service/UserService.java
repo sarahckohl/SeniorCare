@@ -11,6 +11,7 @@ import com.revature.seniorcare.beans.User;
 @Component
 public interface UserService {
 	
+	User add(User newuser);
 	List<User> getAll();
 	Optional<User> findById(int id);
 	Optional<User> findByFirstName(String name);

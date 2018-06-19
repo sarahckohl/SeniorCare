@@ -11,7 +11,8 @@ import com.revature.seniorcare.beans.User;
 
 @Transactional
 public interface UserRepository extends JpaRepository<User, Integer> {
-
+	
+	public User save(User newuser);
 	public Optional<User> findById(int id);
 	public Optional<User> findByEmail(String email);
 	public Optional<User> findByfirstName(String firstName);
@@ -20,6 +21,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	public Optional<User> findByCity(String city);
 	public Optional<User> findByState(String state);
 	public Optional<User> findByStreet(String street);
-
 	
 }
