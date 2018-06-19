@@ -9,7 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -18,11 +17,11 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Entity
-@Inheritance
 @Table(name="USERS")
+@Component
 public class User {
 
 	public User() {
@@ -89,12 +88,12 @@ public class User {
 	String licenseNumber;
 
 
-	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	@Fetch(FetchMode.SELECT)
-	@JoinTable(name="Caregivers_AvailabilityBlocks",
-			joinColumns=@JoinColumn(name="caregiver_ID"),
-			inverseJoinColumns=@JoinColumn(name="availability_block_ID"))
-	private Set<AvailabilityBlock> availability;
+//	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+//	@Fetch(FetchMode.SELECT)
+//	@JoinTable(name="Caregivers_AvailabilityBlocks",
+//			joinColumns=@JoinColumn(name="caregiver_ID"),
+//			inverseJoinColumns=@JoinColumn(name="availability_block_ID"))
+//	private Set<AvailabilityBlock> availability;
 	
 	public User(int id, String username, String email, String firstName, String lastName, int zipCode, String state,
 			String city, String street) {

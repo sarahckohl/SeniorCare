@@ -39,12 +39,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Appointment addAppointment(User u, Appointment a) {
-		// TODO Auto-generated method stub
-		return a;
-	}
-
-	@Override
 	public Optional<User> login(String username, String password) {
 		// TODO Auto-generated method stub
 		return null;

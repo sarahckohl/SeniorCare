@@ -14,11 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.springframework.stereotype.Component;
@@ -33,9 +32,10 @@ import org.springframework.stereotype.Component;
  * + AlEx
  */
 
-@Component
 @Entity
+@DynamicUpdate
 @Table(name="Appointments")
+@Component
 public class Appointment {
 	
 	@Id
@@ -98,10 +98,12 @@ public class Appointment {
 			User caregiver, AppointmentStatus status) {
 		super();
 		
+		
+		
 		if(startTime.after(endTime)) throw new IllegalArgumentException
 		("Start time occurs after end time.");
-	if(startTime.YEAR != endTime.YEAR || startTime.MONTH != endTime.MONTH 
-			|| startTime.DAY_OF_MONTH != endTime.DAY_OF_MONTH)
+	if(startTime.get(Calendar.YEAR) != endTime.get(Calendar.YEAR) || startTime.get(Calendar.MONTH) != endTime.get(Calendar.MONTH) 
+			|| startTime.get(Calendar.DAY_OF_MONTH) != endTime.get(Calendar.DAY_OF_MONTH))
 			throw new IllegalArgumentException
 			("Appointment overlapping multiple days.  If this is intended"
 			+ "split into two appointments.");
@@ -173,6 +175,75 @@ public class Appointment {
 		this.status = status;
 	}
 	
+	/**
+	 * An appointment is overlapping if either an end time of one overlaps
+	 * the start time of another, or if the start t time of one overlaps
+	 * the end time of another.
+	 * @param b An appointment to check overlapping with.
+	 * @return True if the appointments overlap, false if the do not.
+	 */
+	public boolean overlapsWith(Appointment b) {
+			if(
+					(
+							b.getStartTime().before(this.getStartTime()) 
+							&&
+							b.getEndTime().after(this.getStartTime()) 
+					)
+					||
+					(
+							this.getStartTime().before(b.getStartTime())
+							&&
+							this.getEndTime().after(b.getStartTime())
+					)
+				)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+	}
+	
+	/**
+	 * One appointment envelops another appointment if one appointment's duration is
+	 * completely within the bounds of another.  Envenlops() checks not only if this
+	 * appointment envelops b, be also vice-versa.
+	 * @param b An appointment to test enveloping of.
+	 * @return True of a envelops b, true if b envelops a, otherwise false.
+	 */
+	public boolean envelops(Appointment b) {
+		if(
+				(
+						this.getStartTime().after(b.getStartTime()) 
+						&&
+						this.getStartTime().before(b.getEndTime())
+				)
+				||
+				(
+						b.getStartTime().after(this.getStartTime())
+						&&
+						b.getStartTime().before(this.getEndTime())
+				)
+			)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	/**
+	 * Compares two appointments that  belong to the same user, and checks
+	 * scheduling one would constitute a schedule conflict with the other.
+	 * @param b An appointment FROM THE SAME USER to test confliction with.
+	 * @return True if appointments conflict, false otherwise.
+	 */
+	public boolean conflictsWith(Appointment b) {
+		return (this.envelops(b) || this.overlapsWith(b));
+	}
 	
 
 }
