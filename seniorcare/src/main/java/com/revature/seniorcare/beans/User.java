@@ -105,7 +105,6 @@ public class User {
 		this.preferredCaregivers = preferredCaregivers;
 		this.preferences = preferences;
 		this.licenseNumber = licenseNumber;
-		this.availability = availability;
 	}
 
 
@@ -278,16 +277,6 @@ public class User {
 
 
 
-	public Set<AvailabilityBlock> getAvailability() {
-		return availability;
-	}
-
-
-
-	public void setAvailability(Set<AvailabilityBlock> availability) {
-		this.availability = availability;
-	}
-
 
 
 	@Override
@@ -295,8 +284,8 @@ public class User {
 		return "User [id=" + id + ", userrole=" + userrole + ", username=" + username + ", email=" + email
 				+ ", firstName=" + firstName + ", lastName=" + lastName + ", zipCode=" + zipCode + ", state=" + state
 				+ ", city=" + city + ", street=" + street + ", schedule=" + schedule + ", preferredCaregivers="
-				+ preferredCaregivers + ", preferences=" + preferences + ", licenseNumber=" + licenseNumber
-				+ ", availability=" + availability + "]";
+				+ preferredCaregivers + ", preferences=" + preferences + ", licenseNumber=" + licenseNumber +
+				"]";
 	}
 	
 	

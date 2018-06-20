@@ -42,20 +42,20 @@
 	<!-- CONFIGURATION OF CONTEXTUAL SESSIONS, which is the integration of Spring 
 		ORM and Hibernate -->
 
-	<!--  	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+	  	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 			<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 			<property name="url" value="jdbc:oracle:thin:@//seniorcaredb.cop8urxdosru.us-east-2.rds.amazonaws.com:1521/ORCL" />
 			<property name="username" value="seniorcare" />
 			<property name="password" value="revature" />
-	</bean>		-->
-	
+	</bean>		
+	<!-- 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 			<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 			<property name="url" value="jdbc:oracle:thin:@//localhost:1521/XE" />
 			<property name="username" value="SeniorCare" />
 			<property name="password" value="p4ssw0rd" />
 	</bean>	
-
+ 	-->
 	<!-- Spring data isnt natively compatible with Hibernate, we need an adapter 
 		to use it instead of just using JPA -->
 	<bean id="hibernateJpaVendorAdapter"
