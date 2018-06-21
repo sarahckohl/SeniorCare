@@ -7,11 +7,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.revature.seniorcare.beans.User;
+import com.revature.seniorcare.beans.UserInfo;
 import com.revature.seniorcare.service.UserService;
 
 @Controller
@@ -22,7 +25,7 @@ public class UserController {
 	
 	
 	@RequestMapping(value = "/login", method=RequestMethod.GET)
-	public String login(HttpServletRequest req, HttpServletResponse resp) {
+	public ResponseEntity<UserInfo> login(HttpServletRequest req, HttpServletResponse resp) {
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
 		
@@ -39,12 +42,13 @@ public class UserController {
 			resp.addHeader("userid", String.valueOf(u.get().getId()));
 			resp.addHeader("userrole", u.get().getUserrole());
 			resp.addHeader("email", u.get().getEmail());
+			return new ResponseEntity<UserInfo>(new UserInfo(u.get()), HttpStatus.FOUND);
 		}
 		return null;
 	}
 	
 	@RequestMapping(value = "/register", method=RequestMethod.GET)
-	public String register(HttpServletRequest req, HttpServletResponse resp) {
+	public ResponseEntity<UserInfo> register(HttpServletRequest req, HttpServletResponse resp) {
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
 		String firstname = req.getParameter("firstname");
@@ -72,6 +76,7 @@ public class UserController {
 			resp.addHeader("userid", String.valueOf(u.get().getId()));
 			resp.addHeader("userrole", u.get().getUserrole());
 			resp.addHeader("email", u.get().getEmail());
+			return new ResponseEntity<UserInfo>(new UserInfo(u.get()), HttpStatus.CREATED);
 		}
 		return null;
 	}
