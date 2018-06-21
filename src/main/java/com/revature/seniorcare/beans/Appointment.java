@@ -100,8 +100,8 @@ public class Appointment {
 		
 		if(startTime.after(endTime)) throw new IllegalArgumentException
 		("Start time occurs after end time.");
-	if(startTime.YEAR != endTime.YEAR || startTime.MONTH != endTime.MONTH 
-			|| startTime.DAY_OF_MONTH != endTime.DAY_OF_MONTH)
+	if(startTime.get(Calendar.YEAR) != endTime.get(Calendar.YEAR) || startTime.get(Calendar.MONTH) != endTime.get(Calendar.MONTH) 
+			|| startTime.get(Calendar.DAY_OF_MONTH) != endTime.get(Calendar.DAY_OF_MONTH))
 			throw new IllegalArgumentException
 			("Appointment overlapping multiple days.  If this is intended"
 			+ "split into two appointments.");
@@ -241,6 +241,15 @@ public class Appointment {
 	 */
 	public boolean conflictsWith(Appointment b) {
 		return (this.envelops(b) || this.overlapsWith(b));
+	}
+	
+	public String dayOfTheWeek() {
+		
+		 String[] strDays = new String[] { "Sunday", "Monday", "Tuesday", "Wednesday", "Thusday",
+			        "Friday", "Saturday" };
+			    // Day_OF_WEEK starts from 1 while array index starts from 0
+			   
+		 	return strDays[this.getStartTime().get(Calendar.DAY_OF_WEEK)];
 	}
 
 }
