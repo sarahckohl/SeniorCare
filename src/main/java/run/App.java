@@ -15,10 +15,10 @@ public class App {
 		
 		UserService service = (UserService) context.getBean("UserService", UserService.class);
 		
-		User temp = service.add(new User(0, "Patient", "email2", "test", "test", "test", 6820, "test",
+		User temp = service.add(new User(0, "Patient", "email2", "test", "test", "test", "06820", "test",
 				"test", "test", "license1"));
 		
-		User temp2 = service.add(new User(1, "Patient", "email1", "test", "test", "test", 6820, "test",
+		User temp2 = service.add(new User(1, "Patient", "email1", "test", "test", "test", "06820", "test",
 				"test", "test", "license2"));
 		
 		System.out.println(temp.toString());

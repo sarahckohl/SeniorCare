@@ -47,7 +47,7 @@ public class User {
 	private String lastName;
 
 	@Column(name = "zipCode", nullable = false)
-	private int zipCode;
+	private String zipCode;
 
 	@Column(name = "state", nullable = false)
 	private String state;
@@ -86,10 +86,24 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(int id, String userrole, String email, String password, String firstName, String lastName, int zipCode,
+	public User(int id, String userrole, String email, String password, String firstName, String lastName, String zipCode,
 			String state, String city, String street, String licenseNumber) {
 		super();
 		this.id = id;
+		this.userrole = userrole;
+		this.email = email;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.zipCode = zipCode;
+		this.state = state;
+		this.city = city;
+		this.street = street;
+		this.licenseNumber = licenseNumber;
+	}
+
+	public User(String userrole, String email, String password, String firstName, String lastName, String zipCode,
+			String state, String city, String street, String licenseNumber) {
 		this.userrole = userrole;
 		this.email = email;
 		this.password = password;
@@ -150,11 +164,11 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public int getZipCode() {
+	public String getZipCode() {
 		return zipCode;
 	}
 
-	public void setZipCode(int zipCode) {
+	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
 

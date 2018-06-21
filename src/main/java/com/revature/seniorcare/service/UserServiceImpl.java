@@ -46,11 +46,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Optional<User> login(String email, String password) {
-		Optional<User> u = userRepo.findByEmail(email);
+		Optional<User> temp = userRepo.findByEmail(email);
 
-		if (u.isPresent()) {
-			if (u.get().getPassword().equals(password)) {
-				return u;
+		if (temp.isPresent()) {
+			if (temp.get().getPassword().equals(password)) {
+				return temp;
 			}
 		}
 		return null;
@@ -60,6 +60,18 @@ public class UserServiceImpl implements UserService {
 	public User add(User newuser) {
 		User u = userRepo.save(newuser);
 		return u;
+	}
+
+	@Override
+	public Optional<User> register(User u) {
+		Optional<User> temp = userRepo.findByEmail(u.getEmail());
+
+		if (!temp.isPresent()) {
+			temp = Optional.of(userRepo.save(u));
+			 
+			return temp;
+		}
+		return null;
 	}
 
 }
