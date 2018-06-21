@@ -30,8 +30,6 @@ public class UserController {
 				username + " with password "+ password);
 		Optional<User> u = userService.login(username, password);
 		
-		
-		
 		if(u != null) {
 			System.out.println(u.toString());
 			HttpSession session = req.getSession();
@@ -57,14 +55,13 @@ public class UserController {
 		String zipcode = req.getParameter("zipcode");
 		String phone = req.getParameter("phone");
 		String license = req.getParameter("license");
-		
-		User newUser = new User(username, password, firstname, lastname, state, city, address, zipcode, phone, license);
+		String userrole = req.getParameter("userrole");
+
+		User newUser = new User( userrole,  username,  password,  firstname,  lastname,  zipcode, state,  city,  address,  license);
 		
 		System.out.println("IN REGISTER --GET. Attempting to add new user " +
 				username + " with password "+ password);
 		Optional<User> u = userService.register(newUser);
-		
-		
 		
 		if(u != null) {
 			System.out.println(u.toString());
@@ -79,22 +76,5 @@ public class UserController {
 		return null;
 	}
 	
-	
-//	@RequestMapping(value = "/login", method=RequestMethod.POST)
-//	public String login(HttpServletRequest req) {
-//		String username = req.getParameter("username");
-//		String password = req.getParameter("password");
-//		
-//		System.out.println("IN LOGIN --POST. Attempting to log in user " +
-//				username + " with password "+ password);
-//		Optional<User> u = userService.login(username, password);
-//		if(u == null) {
-//			return "redirect:login";
-//		} else {
-//			HttpSession session = req.getSession();
-//			session.setAttribute("user", u);
-//			return "redirect:home";
-//		}
-//	}
 	
 }
