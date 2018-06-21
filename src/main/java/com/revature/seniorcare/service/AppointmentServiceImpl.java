@@ -72,7 +72,6 @@ public class AppointmentServiceImpl implements AppointmentService{
 			throw new AppointmentConflictionException("Caregiver already has"
 					+ "an appointment within the times specified.");
 		} else {
-			//TODO edit appointment in database
 			appointmentRepo.save(a);
 			return a;
 		}
