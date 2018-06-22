@@ -53,10 +53,8 @@ public class Appointment {
 	@Column(name="description", nullable=false)
 	String description;
 	
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	@Fetch(FetchMode.SELECT)
-	@JoinColumn(name="patient")
-	User patient;
+	@Column(name="patient", nullable=false)
+	int patient;
 	
 	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@Fetch(FetchMode.SELECT)
@@ -65,7 +63,7 @@ public class Appointment {
 	
 	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@Fetch(FetchMode.SELECT)
-	@JoinColumn(name="AppointmentStatus", nullable=false)
+	@JoinColumn(name="AppointmentStatus")
 	AppointmentStatus status;
 	
 	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
@@ -81,13 +79,25 @@ public class Appointment {
 			joinColumns=@JoinColumn(name="appointment_ID"),
 			inverseJoinColumns=@JoinColumn(name="Note_ID"))
 	private Set<Note> aptNotes;
+	
+	
 
 	public Appointment() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
+
+	public Appointment(int patintid, Calendar startDateTime, Calendar endDateTime, String description) {
+		super();
+		this.startDate = startDateTime;
+		this.endDate = endDateTime;
+		this.description = description;
+		this.patient = patintid;
 	}
 
 	
-	public Appointment(int id, Calendar startTime, Calendar endTime, String description, User patient,
+	public Appointment(int id, Calendar startTime, Calendar endTime, String description, int patient,
 			User caregiver, AppointmentStatus status) {
 		super();
 		
@@ -107,17 +117,6 @@ public class Appointment {
 		this.caregiver = caregiver;
 		this.status = status;
 	}
-
-	
-
-	public Appointment( User patient, Calendar startDate, Calendar endDate, String description) {
-		super();
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.description = description;
-		this.patient = patient;
-	}
-
 
 	public int getId() {
 		return id;
@@ -151,11 +150,11 @@ public class Appointment {
 		this.description = description;
 	}
 
-	public User getPatient() {
+	public int getPatient() {
 		return patient;
 	}
 
-	public void setPatient(User patient) {
+	public void setPatient(int patient) {
 		this.patient = patient;
 	}
 

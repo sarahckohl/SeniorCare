@@ -47,15 +47,15 @@ public class AppointmentServiceImpl implements AppointmentService{
 	@Override
 	public Appointment addAppointment(Appointment a) {
 		
-		if(!appointmentIsValidForPatient(a))
-		{
-			throw new AppointmentConflictionException("Patient already has"
-					+ "an appointment within the times specified.");
-		}
-		else {
+//		if(!appointmentIsValidForPatient(a))
+//		{
+//			throw new AppointmentConflictionException("Patient already has"
+//					+ "an appointment within the times specified.");
+//		}
+//		else {
 		appointmentRepo.save(a);
 		return a;
-		}
+		
 	}
 	
 	/**
@@ -66,17 +66,17 @@ public class AppointmentServiceImpl implements AppointmentService{
 	 * a caregiver.
 	 * @return The modified appointment.
 	 */
-	public Appointment joinAppointment(Appointment a)
-	{
-		if(!appointmentIsValidForPatient(a))
-		{
-			throw new AppointmentConflictionException("Caregiver already has"
-					+ "an appointment within the times specified.");
-		} else {
-			appointmentRepo.save(a);
-			return a;
-		}
-	}
+//	public Appointment joinAppointment(Appointment a)
+//	{
+//		if(!appointmentIsValidForPatient(a))
+//		{
+//			throw new AppointmentConflictionException("Caregiver already has"
+//					+ "an appointment within the times specified.");
+//		} else {
+//			appointmentRepo.save(a);
+//			return a;
+//		}
+//	}
 
 	@Override
 	public List<Appointment> findByCaregiver(User c) {
@@ -84,8 +84,8 @@ public class AppointmentServiceImpl implements AppointmentService{
 	}
 
 	@Override
-	public List<Appointment> findByPatient(User p) {
-		return appointmentRepo.findByPatient(p);
+	public List<Appointment> findByPatient(int userid) {
+		return appointmentRepo.findByPatient(userid);
 	}
 
 	@Override
@@ -123,25 +123,25 @@ public class AppointmentServiceImpl implements AppointmentService{
 	 * @param newAppointment the appointment to be added.
 	 * @return true if there is no scheduling conflict, otherwise false.
 	 */
-	public boolean appointmentIsValidForPatient(Appointment newAppointment) {
-		
-		//find all appointments with this caregiver
-		/*
-		 * TODO we could search a smaller domain if we implement DAO queries that find by
-		 * date & user and then only check for conflicts for appointments on the same day.
-		 */
-		List<Appointment> existingAppointments = 
-				appointmentRepo.findByPatient(newAppointment.getPatient());
-		
-		for(Appointment existingAppointment : existingAppointments) {
-			if(newAppointment.conflictsWith(existingAppointment))
-			{
-				return false;
-			}
-		}
-		
-		return true;
-	}
+//	public boolean appointmentIsValidForPatient(Appointment newAppointment) {
+//		
+//		//find all appointments with this caregiver
+//		/*
+//		 * TODO we could search a smaller domain if we implement DAO queries that find by
+//		 * date & user and then only check for conflicts for appointments on the same day.
+//		 */
+//		List<Appointment> existingAppointments = 
+//				appointmentRepo.findByPatient(newAppointment.getPatient());
+//		
+//		for(Appointment existingAppointment : existingAppointments) {
+//			if(newAppointment.conflictsWith(existingAppointment))
+//			{
+//				return false;
+//			}
+//		}
+//		
+//		return true;
+//	}
 
 	@Override
 	public void getRequestedForWeek(Calendar dateMonday) {

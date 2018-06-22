@@ -31,94 +31,96 @@ public class AppointmentController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private AppointmentService aptService;
-	
+
 	@Autowired
 	private AvailabiltyBlockService avlblkService;
-	
-	
-	@RequestMapping(value = "/getSchedule", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/getSchedule", method = RequestMethod.GET)
 	public ResponseEntity<ScheduleInfo> login(HttpServletRequest req, HttpServletResponse resp) {
-		
+
 		System.out.println("request recieved");
-		
+
 		String temp = req.getParameter("userid");
 		int userid = Integer.valueOf(temp);
 		String userrole = req.getParameter("userrole");
 		String weekDate = req.getParameter("weekdate");
-		
+
 		ScheduleInfo weekSchedule = new ScheduleInfo();
-		
+
 		Optional<User> user = userService.findById(userid);
-		
+
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd", Locale.ENGLISH);
-		
+
 		try {
 			cal.setTime(sdf.parse(weekDate));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 		weekSchedule.setUserApts(user.get().getScheduleByWeek(cal));
-		
+
 		if (userrole.equals("Patient")) {
-			
+
 			avlblkService.getAllForWeek(cal);
-			
+
 		} else if (userrole.equals("Caregiver")) {
-			
+
 			aptService.getRequestedForWeek(cal);
-			
+
 		}
-		
+
 		return new ResponseEntity<ScheduleInfo>(weekSchedule, HttpStatus.FOUND);
 	}
-	
-	@RequestMapping(value = "/newappointment", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/newappointment", method = RequestMethod.GET)
 	public ResponseEntity<AppointmentInfo> register(HttpServletRequest req, HttpServletResponse resp) {
 		String temp = req.getParameter("userid");
 		int userid = Integer.valueOf(temp);
-		
+
 		Calendar startDateTime = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd hh:mm", Locale.ENGLISH);
-		
+
 		temp = req.getParameter("startdatetime");
-		
+
 		try {
 			startDateTime.setTime(sdf.parse(temp));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 		Calendar endDateTime = Calendar.getInstance();
-		
+
 		temp = req.getParameter("enddatetime");
-		
+
 		try {
 			endDateTime.setTime(sdf.parse(temp));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
-		
+
 		String description = req.getParameter("description");
-		
-		User creator = userService.findById(userid).get();
-		System.out.println(creator.getSchedule().toString());
-		
-		System.out.println(creator.toString() + " start: " +startDateTime.getTime()+ " end: " + endDateTime.getTime() + " desc: "+ description);
-		
-		Appointment newApt = new Appointment(creator, startDateTime, endDateTime, description);
-		
-		aptService.addAppointment(newApt);
-		
-		AppointmentInfo aptinfo = new AppointmentInfo(newApt);
-		
-		return new ResponseEntity<AppointmentInfo>(aptinfo, HttpStatus.FOUND);
+
+		if (userService.findById(userid).isPresent()) {
+
+			User creator = userService.findById(userid).get();
+			System.out.println(creator.getSchedule().toString());
+
+			System.out.println(creator.toString() + " start: " + startDateTime.getTime() + " end: "
+					+ endDateTime.getTime() + " desc: " + description);
+
+			Appointment newApt = new Appointment(creator.getId(), startDateTime, endDateTime, description);
+			// userService.update(creator);
+			aptService.addAppointment(newApt);
+
+			AppointmentInfo aptinfo = new AppointmentInfo(newApt);
+
+			return new ResponseEntity<AppointmentInfo>(aptinfo, HttpStatus.FOUND);
+		}
+		return null;
 	}
-	
-	
+
 }

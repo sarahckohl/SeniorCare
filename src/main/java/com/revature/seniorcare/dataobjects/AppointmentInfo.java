@@ -12,7 +12,7 @@ public class AppointmentInfo {
 	
 	public AppointmentInfo(Appointment apt) {
 		this.aptID = apt.getId();
-		this.patientID = apt.getPatient().getId();
+		this.patientID = apt.getPatient();
 		
 		if (apt.getCaregiver() != null) {
 		NurseID = apt.getCaregiver().getId();
