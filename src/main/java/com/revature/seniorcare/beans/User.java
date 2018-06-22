@@ -1,5 +1,7 @@
 package com.revature.seniorcare.beans;
 
+import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -58,24 +60,24 @@ public class User {
 	@Column(name = "street", nullable = false)
 	private String street;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@Fetch(FetchMode.SELECT)
 	@JoinTable(name = "User_APPOINTMENTS", joinColumns = @JoinColumn(name = "user_ID"), inverseJoinColumns = @JoinColumn(name = "appointment_ID"))
 	private Set<Appointment> schedule;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@Fetch(FetchMode.SELECT)
-	@JoinTable(name = "PATIENTS_PREFERRED_Caregivers", joinColumns = @JoinColumn(name = "patient_ID"), inverseJoinColumns = @JoinColumn(name = "caregiver_ID"))
-	private Set<User> preferredCaregivers;
+//	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	@Fetch(FetchMode.SELECT)
+//	@JoinTable(name = "PATIENTS_PREFERRED_Caregivers", joinColumns = @JoinColumn(name = "user_ID"), inverseJoinColumns = @JoinColumn(name = "user_ID"))
+//	private Set<User> preferredCaregivers;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@Fetch(FetchMode.SELECT)
-	@JoinTable(name = "PATIENTS_PREFERENCES", joinColumns = @JoinColumn(name = "patient_ID"), inverseJoinColumns = @JoinColumn(name = "preference_ID"))
+	@JoinTable(name = "PATIENTS_PREFERENCES", joinColumns = @JoinColumn(name = "user_ID"), inverseJoinColumns = @JoinColumn(name = "preference_ID"))
 	private Set<Preference> preferences;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@Fetch(FetchMode.SELECT)
-	@JoinTable(name = "Caregivers_AvailabilityBlocks", joinColumns = @JoinColumn(name = "caregiver_ID"), inverseJoinColumns = @JoinColumn(name = "availabilityblock_ID"))
+	@JoinTable(name = "Caregivers_AvailabilityBlocks", joinColumns = @JoinColumn(name = "user_ID"), inverseJoinColumns = @JoinColumn(name = "availabilityblock_ID"))
 	private Set<AvailabilityBlock> availability;
 
 	@Column(name = "licensenumber", unique = true)
@@ -204,13 +206,13 @@ public class User {
 		this.schedule = schedule;
 	}
 
-	public Set<User> getPreferredCaregivers() {
-		return preferredCaregivers;
-	}
-
-	public void setPreferredCaregivers(Set<User> preferredCaregivers) {
-		this.preferredCaregivers = preferredCaregivers;
-	}
+//	public Set<User> getPreferredCaregivers() {
+//		return preferredCaregivers;
+//	}
+//
+//	public void setPreferredCaregivers(Set<User> preferredCaregivers) {
+//		this.preferredCaregivers = preferredCaregivers;
+//	}
 
 	public Set<Preference> getPreferences() {
 		return preferences;
@@ -234,6 +236,20 @@ public class User {
 
 	public void setAvailability(Set<AvailabilityBlock> availability) {
 		this.availability = availability;
+	}
+	
+	public Set<Appointment> getScheduleByWeek(Calendar dateMonday) {
+		Set<Appointment> weeksched = new HashSet<Appointment>();
+		Calendar dateFriday = dateMonday;
+		dateFriday.add(Calendar.DAY_OF_MONTH, 5);
+		
+		for (Appointment a : getSchedule()) {
+			if (a.getStartTime().compareTo(dateMonday) >= 0 &&  a.getStartTime().compareTo(dateFriday) <= 0) {
+				weeksched.add(a);
+			}
+		}
+		
+		return weeksched;
 	}
 
 	@Override

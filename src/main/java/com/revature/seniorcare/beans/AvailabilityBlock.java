@@ -34,12 +34,13 @@ public class AvailabilityBlock {
 	int id;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "starttime", nullable = false)
-    private Calendar starttime;
+    @Column(name = "StartDate", nullable = false)
+    private Calendar startDate;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "endtime", nullable = false)
-    private Calendar endtime;
+    @Column(name = "EndDate", nullable = false)
+    private Calendar endDate;
+	
 
 	public AvailabilityBlock() {
 		// TODO Auto-generated constructor stub
@@ -56,8 +57,8 @@ public class AvailabilityBlock {
 				("Availability overlapping multiple days.  If this is intended"
 				+ "split into two availabilities.");
 		this.id = id;
-		this.starttime = start;
-		this.endtime = end;
+		this.startDate = start;
+		this.endDate = end;
 	}
 
 	public int getId() {
@@ -69,12 +70,12 @@ public class AvailabilityBlock {
 	}
 
 	public Calendar getStart() {
-		return starttime;
+		return startDate;
 	}
 
 
 	public Calendar getEnd() {
-		return endtime;
+		return endDate;
 	}
 	
 	

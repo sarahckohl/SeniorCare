@@ -44,11 +44,11 @@ public class Appointment {
 	@Column(name="APPOINTMENT_ID")
 	int id;
 	
-	@Column(name="startTime", nullable=false)
-	Calendar startTime;
+	@Column(name="startDate", nullable=false)
+	Calendar startDate;
 	
-	@Column(name="endTime", nullable=false)
-	Calendar endTime;
+	@Column(name="endDate", nullable=false)
+	Calendar endDate;
 	
 	@Column(name="description", nullable=false)
 	String description;
@@ -67,13 +67,6 @@ public class Appointment {
 	@Fetch(FetchMode.SELECT)
 	@JoinColumn(name="AppointmentStatus", nullable=false)
 	AppointmentStatus status;
-	
-	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	@Fetch(FetchMode.SELECT)
-	@JoinTable(name="APPOINTMENTS_NOTES",
-			joinColumns=@JoinColumn(name="appointment_ID"),
-			inverseJoinColumns=@JoinColumn(name="NOTE_ID"))
-	private Set<Note> Note;
 	
 	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@Fetch(FetchMode.SELECT)
@@ -107,14 +100,23 @@ public class Appointment {
 			+ "split into two appointments.");
 		
 		this.id = id;
-		this.startTime = startTime;
-		this.endTime = endTime;
+		this.startDate = startTime;
+		this.endDate = endTime;
 		this.description = description;
 		this.patient = patient;
 		this.caregiver = caregiver;
 		this.status = status;
 	}
 
+	
+
+	public Appointment( User patient, Calendar startDate, Calendar endDate, String description) {
+		super();
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.description = description;
+		this.patient = patient;
+	}
 
 
 	public int getId() {
@@ -126,19 +128,19 @@ public class Appointment {
 	}
 
 	public Calendar getStartTime() {
-		return startTime;
+		return startDate;
 	}
 
 	public void setStartTime(Calendar startTime) {
-		this.startTime = startTime;
+		this.startDate = startTime;
 	}
 
 	public Calendar getEndTime() {
-		return endTime;
+		return endDate;
 	}
 
 	public void setEndTime(Calendar endTime) {
-		this.endTime = endTime;
+		this.endDate = endTime;
 	}
 
 	public String getDescription() {

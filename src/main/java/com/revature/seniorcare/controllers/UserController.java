@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.revature.seniorcare.beans.User;
-import com.revature.seniorcare.beans.UserInfo;
+import com.revature.seniorcare.dataobjects.UserInfo;
 import com.revature.seniorcare.service.UserService;
 
 @Controller

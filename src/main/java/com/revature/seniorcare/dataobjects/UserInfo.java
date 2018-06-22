@@ -1,4 +1,6 @@
-package com.revature.seniorcare.beans;
+package com.revature.seniorcare.dataobjects;
+
+import com.revature.seniorcare.beans.User;
 
 public class UserInfo {
 	int userId;

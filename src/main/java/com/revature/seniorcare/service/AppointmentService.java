@@ -1,5 +1,6 @@
 package com.revature.seniorcare.service;
 
+import java.util.Calendar;
 import java.util.List;
 
 import com.revature.seniorcare.beans.Appointment;
@@ -15,5 +16,6 @@ public interface AppointmentService {
 	List<Appointment> findByPatient(User p);
 	List<Appointment> findByStatus(AppointmentStatus s);
 	Appointment joinAppointment(Appointment a);
+	void getRequestedForWeek(Calendar cal);
 
 }

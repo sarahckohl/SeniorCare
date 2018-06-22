@@ -1,5 +1,6 @@
 package com.revature.seniorcare.service;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -140,5 +141,14 @@ public class AppointmentServiceImpl implements AppointmentService{
 		}
 		
 		return true;
+	}
+
+	@Override
+	public void getRequestedForWeek(Calendar dateMonday) {
+		Calendar dateFriday = dateMonday;
+		dateFriday.add(Calendar.DAY_OF_MONTH, 5);
+		
+		appointmentRepo.findAllByStartDateLessThanEqualAndEndDateGreaterThanEqual(dateMonday, dateFriday);
+		
 	}
 }
